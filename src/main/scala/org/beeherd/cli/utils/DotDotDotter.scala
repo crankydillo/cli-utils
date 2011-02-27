@@ -25,10 +25,13 @@ import java.util.concurrent._
 */
 class DotDotDotter[T](
     fn: () => T
-    , msg: String = "Executing"
-    , numDots: Int = 3
-    , delay: Int = 500
+    , msg: String
+    , numDots: Int
+    , delay: Int
   ) {
+
+  def this(fn: () => T) = this(fn, "Executing", 3, 500);
+
   private val blockingQueue = new ArrayBlockingQueue[T](1);
  
   /**

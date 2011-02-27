@@ -28,12 +28,14 @@ import scala.collection.mutable.ListBuffer
 class Tablizer(val pad: String) {
   type Row = List[String]
 
-  def tablize(dataRows: List[Row], headers: Row = List()): List[Row] = {
+  def tablize(dataRows: List[Row]): List[Row] = tablize(dataRows, List());
+
+  def tablize(dataRows: List[Row], headers: Row): List[Row] = {
     val rows = 
       if (headers.isEmpty)
         dataRows
       else
-        headers +: dataRows
+        headers :: dataRows
 
     val maxLens = findMaxLengths(rows);
 
@@ -59,14 +61,16 @@ class Tablizer(val pad: String) {
       else
         "-" * l._1
     }
-    formattedHeaders +: underlines +: lst.drop(1)
+    formattedHeaders :: underlines :: lst.drop(1)
   }
 
-  def tablizeToStr(dataRows: List[Row], headers: Row = List()) =
+  def tablizeToStr(dataRows: List[Row]): String = tablizeToStr(dataRows, List())
+
+  def tablizeToStr(dataRows: List[Row], headers: Row): String =
     tablize(dataRows, headers).map {_.mkString}.mkString("\n")
 
   private def findMaxLengths(rows: List[Row]): List[Int] = {
-    val start = List.tabulate(rows.first.size) {n => 0} // start with a bunch of 0s
+    val start = List.tabulate(rows.first.size, {n => 0}) // start with a bunch of 0s
 
     // TODO: Avoid index access to List..
     rows.foldLeft (start) {(x, y) => 
