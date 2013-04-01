@@ -39,24 +39,24 @@ object TablizerSpec extends Specification {
     "create column headers if specified" in {
       val rows = tablizer.tablize(List(), headers);
       rows must haveSize(2);
-      rows(0) must containInOrder(List("col1", pad + "column2"));
-      rows(1) must containInOrder(List("----", pad + "-------"));
+      rows(0) must containInOrder("col1", pad + "column2");
+      rows(1) must containInOrder("----", pad + "-------");
     }
 
     "create right-aligned data with padding" in {
       val rows = tablizer.tablize(data);
       rows must haveSize(2);
-      rows(0) must containInOrder(List("11", pad + "12"));
-      rows(1) must containInOrder(List("21", pad + "22"));
+      rows(0) must containInOrder("11", pad + "12");
+      rows(1) must containInOrder("21", pad + "22");
     }
 
     "create right-aligned headers and data" in {
       val rows = tablizer.tablize(data, headers);
       rows must haveSize(4);
-      rows(0) must containInOrder(List("col1", pad + "column2"));
-      rows(1) must containInOrder(List("----", pad + "-------"));
-      rows(2) must containInOrder(List("  11", pad + "     12"));
-      rows(3) must containInOrder(List("  21", pad + "     22"));
+      rows(0) must containInOrder("col1", pad + "column2");
+      rows(1) must containInOrder("----", pad + "-------");
+      rows(2) must containInOrder("  11", pad + "     12");
+      rows(3) must containInOrder("  21", pad + "     22");
     }
 
     "match the underline to the longest column element regardless of whether or not that element in the header" in {
@@ -64,7 +64,7 @@ object TablizerSpec extends Specification {
       val data = List(List("aa", "bbb"));
       val rows = tablizer.tablize(data, headers);
       rows must haveSize(3);
-      rows(1) must containInOrder(List("--", pad + "---"))
+      rows(1) must containInOrder("--", pad + "---")
     }
 
     /*
