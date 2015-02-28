@@ -52,7 +52,7 @@ class Tablizer(val pad: String) {
     if (headers.size == 0)
       return lst;
 
-    val formattedHeaders = lst.first;
+    val formattedHeaders = lst.head
     val underlines = maxLens.zipWithIndex.map {l => 
       if (l._2 > 0)
         pad + "-" * l._1
@@ -66,7 +66,7 @@ class Tablizer(val pad: String) {
     tablize(dataRows, headers).map {_.mkString}.mkString("\n")
 
   private def findMaxLengths(rows: List[Row]): List[Int] = {
-    val start = List.tabulate(rows.first.size) {n => 0} // start with a bunch of 0s
+    val start = List.tabulate(rows.head.size) {n => 0} // start with a bunch of 0s
 
     // TODO: Avoid index access to List..
     rows.foldLeft (start) {(x, y) => 
